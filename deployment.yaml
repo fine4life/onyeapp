@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onyeapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: onyeapp
+  template:
+    metadata:
+      labels:
+        app: onyeapp
+    spec:
+      containers:
+        - name: onyeapp
+          image: iheanyi014/onyeapp:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 5136
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
